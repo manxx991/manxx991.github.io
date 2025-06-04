@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MANXX | Pembuat Nama Laki-laki</title>
+<style>
+  :root {
+    --primary-color: #3677b8;
+    --secondary-color: #5dade2;
+    --background-gradient: linear-gradient(135deg, #e3f2fd, #f7fbff);
+    --text-color: #29456f;
+    --btn-bg: var(--primary-color);
+    --btn-hover-bg: var(--secondary-color);
+    --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --border-radius: 14px;
+    --box-shadow: 0 4px 15px rgba(54, 119, 184, 0.3);
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    background: var(--background-gradient);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 15px 30px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+  nav a:hover {
+    background-color: rgba(54,119,184,0.1);
+  }
+  main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column; /* changed from default row to column so children stack vertically */
+    justify-content: center;
+    align-items: center;
+    padding: 110px 20px 50px;
+  }
+  .container {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 420px;
+    width: 100%;
+    padding: 40px 35px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+  .container:hover {
+    box-shadow: 0 7px 25px rgba(54, 119, 184, 0.45);
+  }
+  h1 {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+    letter-spacing: 1.1px;
+  }
+  button, a.button {
+    margin-top: 1.5rem;
+    background-color: var(--btn-bg);
+    color: white;
+    border: none;
+    padding: 14px 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    letter-spacing: 0.6px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    text-decoration: none;
+    display: inline-block;
+  }
+  button:hover, a.button:hover {
+    background-color: var(--btn-hover-bg);
+    box-shadow: 0 10px 30px rgba(93, 156, 228, 0.65);
+  }
+  .result {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    min-height: 2.75rem;
+    transition: color 0.4s ease;
+  }
+  .footer {
+        margin-top: 2rem;
+        font-size: 1rem;
+        color: #718096;
+        user-select: none;
+      }
+  .footer1 {
+    background: white;
+    padding: 20px 10px;
+    font-size: 0.9rem;
+    color: #3f5a7d;
+    text-align: center;
+    box-shadow: inset 0 1px 3px #dbe9fc;
+    user-select: none;
+  }
+  .below-container {
+    margin: 30px auto 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 440px;
+    align-items: center;
+    justify-content: center;
+  }
+  .back-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .back-button:hover {
+    background-color: var(--btn-hover-bg);
+    box-shadow: 0 10px 30px rgba(93, 156, 228, 0.65);
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div>Pembuat Nama Laki-laki</div>
+  <a href="index.html" aria-label="Kembali ke Halaman Utama">Beranda</a>
+</nav>
+<main>
+  <div class="container">
+    <h1>Pembuat Nama Laki-laki</h1>
+    <div class="result" id="result"></div>
+    <button id="generateBtn">Generate</button>
+    <div class="footer">Klik tombol untuk mendapatkan nama acak!</div>
+  </div>
+  <div class="below-container">
+  <a href="index.html" class="back-button" aria-label="Kembali ke Halaman Utama">Kembali ke Halaman Utama</a>
+</div>
+</main>
+<footer class="footer1">© 2024 MANXX. All rights reserved.</footer>
+
+<script>
+  const generateBtn = document.getElementById("generateBtn");
+  const result = document.getElementById("result");
+
+  const firstNames = [
+  "Rizky", "Fajar", "Dimas", "Agung", "Bayu", "Galih", "Rafi", "Reza", "Adit",
+  "Fahmi", "Iqbal", "Alif", "Naufal", "Ilham", "Arief", "Zaki", "Rian", "Hafiz",
+  "Vino", "Yudha", "Tegar", "Bima", "Arjuna", "Kevin", "Raka", "Andi", "Dhani",
+  "Yoga", "Riko", "Rendy", "Rehan", "Rangga", "Dito", "Fikri", "Rizal", "Hadi",
+  "Faisal", "Ammar", "Ronaldo", "Daffa", "Gilang", "Haikal", "Ridho", "Akbar",
+  "Yogi", "Farhan", "Kiki", "Arfan", "Tomi", "Alam", "Johan", "Satria", "Andre",
+  "Nico", "Ari", "Rafael", "Kurnia", "Bagas", "Rido", "Eka", "Azka", "Ihsan",
+  "Irwan", "Zidan", "Reyhan", "Adam", "Bobby", "Ardi", "Wahyu", "Danang",
+  "Abid", "Hakim", "Maulana", "Alvino", "Davin", "Ferdy", "Jordan", "Elga",
+  "Rifqi", "Ryan", "Derry", "Nabil", "Tama", "Tyo", "Alwan", "Adnan", "Aditiya",
+  "Faiz", "Lutfi", "Ikhsan", "Ridwan", "Yunus", "Zharfan", "Pandu", "Prasetya",
+  "Damar", "Rafiq", "Salman", "Yusuf", "Haris", "Abizar", "Yazid", "Hasan", "Rais", 
+  "Malik", "Ziyad", "Khalid", "Tariq", "Amir", "Imran",
+  "Luqman", "Fariz", "Jabir", "Saif", "Kamil", "Nizam", "Fadli", "Rafa", "Zayan",
+  "Qomar", "Bilal", "Haris", "Jundi", "Rizwan", "Syamil", "Nashir", "Rasyid",
+  "Tsaqif", "Hilmi", "Yasin", "Azzam", "Ibrahim", "Zuhdi", "Adlan", "Mahdi",
+  "Hafizh", "Akmal", "Ghazi", "Jauhar", "Ridwan", "Ayman", "Usman", "Sultan",
+  "Abdurrahman", "Yahya", "Nashwa", "Althaf", "Qayyim", "Nashwan", "Anwar",
+  "Syaamil", "Azmi", "Najib", "Yunus", "Fawwaz", "Zufar", "Husain", "Syadad",
+  "Raqib", "Affan", "Fahrez", "Sabir", "Kaysan", "Azhar", "Qais", "Izzan",
+  "Marwan", "Luay", "Zamal", "Naufel", "Aqil", "Azriel", "Rayyan", "Fattah",
+  "Izzudin", "Raqwan", "Basim", "Khairil", "Ismail", "Zakiya", "Tamim", "Muaz",
+  "Faikar", "Abidzar", "Kairan", "Farez", "Zaky", "Nadim", "Alvino", "Dzakwan",
+  "Asyraf", "Razan", "Salman", "Syawal", "Fikran", "Gibran", "Raihan", "Qhalif",
+  "Zamzam", "Qomaruzzaman", "Zahwan", "Mahfudz", "Nabhan", "Thariq"
+];
+
+const lastNames = [
+  "Saputra", "Pratama", "Ramadhan", "Wijaya", "Kusuma", "Firmansyah", "Santoso",
+  "Kurniawan", "Irawan", "Nugroho", "Susanto", "Hermawan", "Maulana", "Setiawan",
+  "Alamsyah", "Syahputra", "Wibowo", "Sutrisno", "Hidayat", "Fadillah", "Ananda",
+  "Putra", "Yulianto", "Fauzan", "Suryanto", "Laksono", "Utama", "Sapriadi",
+  "Gunawan", "Saputro", "Permana", "Subekti", "Wahyudi", "Prakoso", "Teguh",
+  "Indrawan", "Dharmawan", "Iskandar", "Rahardian", "Basuki", "Pranata",
+  "Hardiansyah", "Ardiansyah", "Rakhman", "Kuswanto", "Sunaryo", "Halim",
+  "Purnomo", "Aryanto", "Yulianto", "Ridwan", "Dirgantara", "Kusnadi", "Prasetyo",
+  "Nasrullah", "Syamsuddin", "Rosyid", "Wirawan", "Ramdani", "Aditya", "Habibi",
+  "Subhan", "Saprijal", "Sudrajat", "Handoko", "Suhendra", "Yulian", "Ramadhan",
+  "Pranowo", "Arianto", "Mustofa", "Fadhil", "Bahri", "Zulfikar", "Wicaksono",
+  "Amrullah", "Budiman", "Surya", "Putrawan", "Satrio", "Wijanarko", "Kusnawan",
+  "Firmanda", "Rahman", "Hasbi", "Ashari", "Syaiful", "Taufik", "Ridho", "Alfarizi",
+  "Subagio", "Fattah", "Nurhadi", "Dwiantara", "Fikriansyah", "Jayadi", "Azhar",
+  "Rahmatullah", "Fathurrahman", "Sungkono", "Gunarto","Alfarizi", "Azzamudin", 
+  "Fathurrahman", "Syahreza", "Alamsyah", "Qodriansyah",
+  "Althafani", "Hidayaturrahman", "Rahmadhani", "Kautsar", "Mubarok", "Zulfadli",
+  "Rabbani", "Albar", "Faizuddin", "Hakimullah", "Hanifudin", "Iskandarani",
+  "Sahluddin", "Ziyadillah", "Najmuddin", "Assegaf", "Alghifari", "Thohir",
+  "Abdillah", "Halimullah", "Alfarouq", "Salsabila", "Mansyur", "Albana",
+  "Natsir", "Rakhmanullah", "Tsamara", "Yunusman", "Qowiyullah", "Azharuddin",
+  "Yazidillah", "Rahmanuddin", "Rafani", "Farouq", "Raisyan", "Syahputra",
+  "Lubis", "Assidiqi", "Abdurrahim", "Siregar", "Fahrudin", "Fadhilah", "Ghiffari",
+  "Ridwanullah", "Maulana Akbar", "Fawwazuddin", "Muzakki", "Qayyis", "Tsalatsa",
+  "Najibullah", "Ghazwan", "Muhaimin", "Naufalian", "Arrazi", "Almansyur",
+  "Ilyaswan", "Nashwan", "Yusufiyan", "Mahzab", "Wibisana", "Hidayatullah",
+  "Syihab", "Asyad", "Lukmanulhakim", "Darwis", "Suyuti", "Bakhtiar", "Ruhul",
+  "Muhtadin", "Shidiq", "Haritsyah", "Rosyadi", "Fakhriansyah", "Azhari",
+  "Azmiansyah", "Suryadi", "Pramudia", "Makarim", "Kuswandono", "Khairul Fikri",
+  "Nurdin", "Ardianto", "Akmali", "Riyadi", "Bariz", "Taqyuddin", "Ubaidillah",
+  "Alfiansyah", "Arqom", "Zainuddin", "Jamaluddin", "Khaidar", "Rahimullah",
+  "Munawwir", "Sayfuddin", "Aslam", "Suharno"
+];
+
+  function getRandomName(firstNames, lastNames) {
+      const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+      const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+      return `${firstName} ${lastName}`;
+  }
+
+  generateBtn.addEventListener("click", () => {
+      const randomName = getRandomName(firstNames, lastNames);
+      result.textContent = randomName;
+      result.style.color = "var(--primary-color)";
+  });
+
+  window.addEventListener("DOMContentLoaded", () => {
+      generateBtn.click();
+  });
+</script>
+</body>
+</html>
+

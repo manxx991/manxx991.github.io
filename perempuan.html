@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MANXX | Pembuat Nama Perempuan</title>
+<style>
+  :root {
+    --primary-color: #d6336c;
+    --secondary-color: #f06595;
+    --background-gradient: linear-gradient(135deg, #ffe7f0, #fff3f7);
+    --text-color: #4a1e35;
+    --btn-bg: var(--primary-color);
+    --btn-hover-bg: var(--secondary-color);
+    --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --border-radius: 14px;
+    --box-shadow: 0 4px 15px rgba(214, 51, 108, 0.3);
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    background: var(--background-gradient);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    color: var(--primary-color);
+    padding: 15px 30px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+  nav a:hover {
+    background-color: rgba(214, 51, 108, 0.1);
+  }
+  main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column; /* Change to column to stack children vertically */
+    justify-content: center;
+    align-items: center;
+    padding: 110px 20px 50px;
+  }
+  .container {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 420px;
+    width: 100%;
+    padding: 40px 35px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+  .container:hover {
+    box-shadow: 0 7px 25px rgba(214, 51, 108, 0.45);
+  }
+  h1 {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+    letter-spacing: 1.1px;
+  }
+  button, a.button {
+    margin-top: 1.5rem;
+    background-color: var(--btn-bg);
+    color: white;
+    border: none;
+    padding: 14px 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    letter-spacing: 0.6px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    text-decoration: none;
+    display: inline-block;
+  }
+  button:hover, a.button:hover {
+    background-color: var(--btn-hover-bg);
+    box-shadow: 0 10px 30px rgba(240, 101, 149, 0.6);
+  }
+  .result {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    min-height: 2.75rem;
+    transition: color 0.4s ease;
+  }
+  .footer {
+        margin-top: 2rem;
+        font-size: 1rem;
+        color: #718096;
+        user-select: none;
+      }
+  .footer1 {
+    background: white;
+    padding: 20px 10px;
+    font-size: 0.9rem;
+    color: #b34e72;
+    text-align: center;
+    box-shadow: inset 0 1px 3px #f5c6d5;
+    user-select: none;
+  }
+  .below-container {
+    margin: 30px auto 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 440px;
+    align-items: center;
+  }
+  .back-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .back-button:hover {
+    background-color: var(--btn-hover-bg);
+    box-shadow: 0 10px 30px rgba(93, 156, 228, 0.65);
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div>Pembuat Nama Perempuan</div>
+  <a href="index.html" aria-label="Kembali ke Halaman Utama">Beranda</a>
+</nav>
+<main>
+  <div class="container">
+    <h1>Pembuat Nama Perempuan</h1> <br>
+    <div class="result" id="result"></div>
+    <button id="generateBtn">Generate</button>
+    <div class="footer">Klik tombol untuk mendapatkan nama acak!</div>
+  </div>
+  <div class="below-container">
+    <a href="index.html" class="back-button" aria-label="Kembali ke Halaman Utama">Kembali ke Halaman Utama</a>
+  </div>
+</main>
+<footer class="footer1">© 2024 MANXX. All rights reserved.</footer>
+
+<script>
+  const generateBtn = document.getElementById("generateBtn");
+  const result = document.getElementById("result");
+
+  const firstNames = [
+      "Wulan", "Siti", "Tika", "Ayu", "Bella", "Citra", "Fitri", "Desi", "Vina",
+      "Dewi", "Nina", "Rina", "Lina", "Sari", "Rani", "Diana", "Maya", "Nadia",
+      "Putri", "Sinta", "Rika", "Lia", "Fika", "Yuni", "Tina", "Nia", "Dina",
+      "Vera", "Cindy", "Mira", "Rosa", "Tiara", "Intan", "Mega", "Silvi", "Anisa",
+      "Nurul", "Kartika", "Zahra", "Kania", "Viona", "Elisa", "Aulia", "Fani",
+      "Gita", "Riska", "Lidya", "Meli", "Novi", "Sheila", "Natasya", "Indri",
+      "Muthia", "Hani", "Adinda", "Dinda", "Nadya", "Salwa", "Farah", "Delia",
+      "Ajeng", "Keyla", "Jihan", "Yasmin", "Laras", "Alika", "Vania", "Meylani",
+      "Rahma", "Syifa", "Mutia", "Dea", "Kirana", "Salsa", "Anjani", "Cassandra",
+      "Oktavia", "Feby", "Tasya", "Della", "Intania", "Winda", "Marsha", "Nayla",
+      "Sekar", "Shafira", "Zulfa", "Isna", "Almira", "Hilda", "Reva", "Mikhaila",
+      "Naila", "Dania", "Caitlyn", "Lovina", "Syakira", "Rafaela", "Azkia", "Shafa",
+      "Aisyah", "Najwa", "Zahira", "Syakira", "Naura", "Humaira", "Zalfa", "Keysha", "Nasywa", "Alika",
+  "Syifa", "Vania", "Salwa", "Almira", "Nadira", "Haura", "Inara", "Fathia", "Rania", "Yasmin",
+  "Naila", "Aurel", "Meisya", "Anindya", "Clarissa", "Velda", "Shafira", "Alenka", "Dara", "Melody",
+  "Kirana", "Shafa", "Tasya", "Amanda", "Rafa", "Cintya", "Gracia", "Ziva", "Amelia", "Elvina",
+  "Nasyita", "Helwa", "Sekar", "Kezia", "Lavina", "Jasmine", "Naurah", "Qirani", "Mufidah", "Adinda",
+  "Safira", "Aurelia", "Danisha", "Azzahra", "Mahira", "Annisa", "Fania", "Delisha", "Rizka", "Alesha",
+  "Nisrina", "Lutfia", "Rahma", "Isyana", "Rinjani", "Putriana", "Azrina", "Adzra", "Syakira", "Aureliana",
+  "Carissa", "Indira", "Almiyah", "Sabrina", "Wulansari", "Felisha", "Vallerie", "Dahlia", "Ghaitsa",
+  "Hanum", "Rashifa", "Maisara", "Salsabila", "Qania", "Tsuraya", "Yumna", "Aleeya", "Shezan", "Aqeela",
+  "Kaila", "Ghazala", "Annaya", "Shanaya", "Shakira", "Fatina", "Zalika", "Ayana", "Cailani", "Almashira",
+  "Khayla", "Shaqeena", "Zanira", "Aliyah", "Maisha", "Alvira"
+  ];
+
+  const lastNames = [
+      "Saputri", "Zahra", "Kusuma", "Anggraini", "Apriani", "Sari", "Wijayanti",
+      "Auliya", "Lestari", "Amelia", "Maulida", "Indah", "Puspita", "Melati",
+      "Nurhaliza", "Safitri", "Rahmawati", "Putriana", "Permatasari", "Cahyani",
+      "Salsabila", "Ramadhani", "Wulandari", "Hidayati", "Rohmah", "Utami",
+      "Pratiwi", "Hermawati", "Yuliana", "Dewantara", "Febrianti", "Putriani",
+      "Marwah", "Halimah", "Rosidah", "Angelin", "Rosalia", "Soraya", "Syahrani",
+      "Maulani", "Azahra", "Kamila", "Shabira", "Rahmania", "Qotrunnada", "Anjani",
+      "Fatimah", "Humairah", "Karimah", "Latifah", "Shalihah", "Muthmainnah",
+      "Azzahra", "Nurfadilah", "Amani", "Syakirah", "Hafshah", "Salamah",
+      "Najwa", "Zhafira", "Balqis", "Shaqeena", "Khaulah", "Yumna", "Khairunnisa",
+      "Fitriyani", "Munirah", "Haura", "Zalfa", "Nurfadhilah", "Raisya", "Shakira",
+      "Nadhira", "Qonita", "Azizah", "Nabila", "Yulinda", "Hanifah", "Sitiami",
+      "Fitriawati", "Putriani", "Nurani", "Melinda", "Utaminingtyas", "Jannah",
+      "Fazira", "Kaniawati", "Arifah", "Musyarrofah", "Aqilah", "Azzura",
+      "Maysaroh", "Nadira", "Rohani", "Sabirah", "Naysila", "Muthiawati", "Qonainah",
+      "Syakila", "Nuraisyah", "Auliati", "Nisrina", "Putriani", "Zahriyah", "Maharani", "Afifah", "Rahmadani", "Indriyani", "Nuraini", "Syahfitri", "Lestari",
+  "Anggraini", "Wulandari", "Nurhasanah", "Handayani", "Fitriyani", "Fadillah", "Salsabilla", "Fitriawati",
+  "Mardiyah", "Susanti", "Melani", "Siregar", "Rosanti", "Kusumawati", "Wijayanti", "Iskandariah", "Pramudita",
+  "Soraya", "Zulfiani", "Kartikasari", "Nurfadilah", "Savitri", "Irawati", "Latifah", "Nurani", "Damayanti",
+  "Permatasari", "Putriasih", "Alawiyah", "Hikmawati", "Rochmawati", "Kurniati", "Hapsari", "Dwiyani", "Rachmawati",
+  "Sundari", "Hasanah", "Amarilis", "Muliani", "Setyaningsih", "Utaminingsih", "Jannah", "Herlina", "Aminah",
+  "Khalisah", "Yuningsih", "Qonitah", "Mufidah", "Suharsih", "Syahrani", "Azizah", "Rochmah", "Husniah",
+  "Syafitri", "Nurzahra", "Yulianingsih", "Asiyah", "Sholeha", "Maryani", "Sumarni", "Rahmalia", "Rafidah",
+  "Sulistyani", "Wardani", "Nurcahya", "Anjani", "Fakhriyah", "Mustafidah", "Kusumaningrum", "Rohmah",
+  "Hidayati", "Kharisma", "Rohayati", "Isnawati", "Yustika", "Suharsih", "Nurulaini", "Syahla", "Khoirunnisa",
+  "Maulidah", "Yuliani", "Yunita", "Mutmainnah", "Syaffira", "Maesaroh", "Rofiah", "Zukhriyah", "Islahiyah",
+  "Sakinah", "Raudhatul", "Wardatul", "Shabirah"
+  ];
+
+  function getRandomName(firstNames, lastNames) {
+      const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+      const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+      return `${firstName} ${lastName}`;
+  }
+
+  generateBtn.addEventListener("click", () => {
+      const randomName = getRandomName(firstNames, lastNames);
+      result.textContent = randomName;
+      result.style.color = "var(--primary-color)";
+  });
+
+  window.addEventListener("DOMContentLoaded", () => {
+      generateBtn.click();
+  });
+</script>
+</body>
+</html>
